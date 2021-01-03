@@ -1,6 +1,7 @@
 <?php
 
-class Session {
+class Session
+{
     public static function regenerate() {
         session_regenerate_id();
     }

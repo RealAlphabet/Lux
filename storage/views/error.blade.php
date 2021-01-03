@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <title>Lux | Error</title> 
+    <title>Lux | Error</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 </head>
@@ -42,7 +42,7 @@
         .flex-auto {
             flex: 1 1 auto;
         }
-        
+
         .list-flex > li {
             display: flex;
         }
@@ -75,8 +75,8 @@
             <div class="flex">
                 <div class="flex-auto border-right">
                     <?php foreach (array_reverse($exception->getTrace()) as $trace): ?>
-                        <div class="trace-line">                        
-                            <?php echo e($trace['file']); ?> 
+                        <div class="trace-line">
+                            <?php echo e($trace['file']); ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="bold">
                     <?php foreach (array_reverse($exception->getTrace()) as $trace): ?>
                         <div class="trace-line">
-                            <?php echo e($trace['line']); ?> 
+                            <?php echo e($trace['line']); ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

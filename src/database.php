@@ -1,16 +1,21 @@
 <?php
 
-class DB {
+class DB
+{
+    private static $connection;
+
     public static function connection() {
-        return new PDO('mysql:host=127.0.0.1;dbname=lux', 'root', 'test');
+        return static::$connection
+            ?? static::$connection = new PDO(sprintf('mysql:host=%s;dbname=%s', DB_HOST, DB_NAME), DB_USER, DB_PASS);
     }
 
     public static function table($table) {
         return new QueryBuilder(self::connection(), $table);
-    } 
+    }
 }
 
-class QueryBuilder {
+class QueryBuilder
+{
     private $connection;
     private $table;
     private $where;
@@ -32,7 +37,7 @@ class QueryBuilder {
 
         if ($where) {
             return $this->connection->query("SELECT * FROM $table WHERE $where")->fetchAll(PDO::FETCH_ASSOC);
-        
+
         } else {
             return $this->connection->query("SELECT * FROM $table")->fetchAll(PDO::FETCH_ASSOC);
         }

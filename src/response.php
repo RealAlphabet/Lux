@@ -1,6 +1,7 @@
 <?php
 
-class Response {
+class Response
+{
     private $headers;
     private $status;
     private $body;
@@ -15,12 +16,12 @@ class Response {
         $this->headers->$name = $value;
         return $this;
     }
-    
+
     function send() {
         $status     = $this->status;
         $headers    = $this->headers;
         $body       = $this->body;
-        
+
         http_response_code($status);
 
         foreach ($headers as $name => $value) {
@@ -29,7 +30,7 @@ class Response {
 
         if (is_string($body)) {
             echo $body;
-        
+
         } else {
             header('Content-Type: application/json');
             echo json_encode($body, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

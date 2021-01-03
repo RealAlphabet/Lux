@@ -6,42 +6,42 @@
 
         html,
         body {
-        background-color: #fff;
-        color: #636b6f;
-        font-family: 'Nunito', sans-serif;
-        font-weight: 200;
-        height: 100vh;
-        margin: 0;
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
         }
 
         .full-height {
-        height: 100vh;
+            height: 100vh;
         }
 
         .flex-center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .text-center {
-        text-align: center;
+            text-align: center;
         }
 
         .title {
-        font-size: 3.5rem;
-        font-weight: 100;
-        margin-bottom: 1rem;
+            font-size: 3.5rem;
+            font-weight: 100;
+            margin-bottom: 1rem;
         }
 
         .links > a {
-        color: #636b6f;
-        padding: 0 25px;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: .1rem;
-        text-decoration: none;
-        text-transform: uppercase;
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
         }
     </style>
 
@@ -50,9 +50,9 @@
             <div class="title">{{ $title ?? "Lux" }}</div>
 
             <div class="links">
-                <a href="https://github.com/RootSkill/Lux/wiki/Documentation">Docs</a>
-                <a href="https://github.com/RootSkill">Creator</a>
-                <a href="https://github.com/RootSkill/Lux">GitHub</a>
+                <a href="https://github.com/RealAlphabet/Lux/wiki/Documentation">Docs</a>
+                <a href="https://github.com/RealAlphabet">Creator</a>
+                <a href="https://github.com/RealAlphabet/Lux">GitHub</a>
             </div>
         </div>
     </div>

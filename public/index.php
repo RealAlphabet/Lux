@@ -4,10 +4,15 @@
  * Lux - An ultra lightweight, fast and secure framework for PHP.
  *
  * @package  Lux
- * @author   RootStar <support@48600000.xyz>
+ * @author   Alphabet <alphabet@lumzapp.com>
  */
 
-define('LUX_START', microtime(true));
+define('LUX_START'  , microtime(true));
+
+define('DB_HOST'    , '127.0.0.1');
+define('DB_NAME'    , 'database');
+define('DB_USER'    , 'user');
+define('DB_PASS'    , 'password');
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +25,4 @@ define('LUX_START', microtime(true));
 |
 */
 
-require_once __DIR__ . '/../src/app.php';
+require_once './src/app.php';

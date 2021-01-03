@@ -3,76 +3,71 @@
 $sections = [];
 
 function exception_handler($exception) {
-    $content = View::compile("error", true);
-
-    ob_start();
-    eval("?> $content");
-    print_r(ob_get_clean());
-    return false;
+    ob_end_clean();
+    include View::compile("error");
 }
 
 set_exception_handler('exception_handler');
 
 function extendLayout($layout) {
-    global $sections;
-    $content = View::compile($layout);
-    eval("?>$content");
+    include View::compile($layout);
 }
 
 function startSection($name) {
     global $section;
+
     $section = $name;
+
     ob_start();
 }
 
 function endSection() {
-    global $section, $sections;
-    $sections[$section] = ob_get_clean(); 
+    global $sections, $section;
+
+    $sections[$section] = ob_get_clean();
 }
 
 function yieldContent($name) {
     global $sections;
-    return isset($sections[$name]) ? trim($sections[$name]) . "\n" : '';
+
+    return isset($sections[$name])
+        ? trim($sections[$name]) . "\n"
+        : '';
 }
 
 function e($str) {
     return htmlentities($str);
 }
 
-class View {
+class View
+{
     public static function render($path, $data = []) {
         extract($data);
-        $content = self::compile($path);
-
         ob_start();
-        eval("?>$content");
+        include self::compile($path);
         return ob_get_clean();
     }
 
-    public static function compile($file, $dontRecompile = true) {
-        $path       = __DIR__ . "/../views/$file.blade.php";
-        $compiled   = __DIR__ . "/../storage/views/$file.blade.php";
+    public static function compile($file, $force = true) {
+        $path       = "./views/$file.blade.php";
+        $compiled   = "./storage/views/$file.blade.php";
 
-        if ($dontRecompile && file_exists($compiled) && filemtime($path) == filemtime($compiled)) {
-            // Load file as string
-            $content = file_get_contents($compiled);
-
-        } else {
+        if ($force || file_exists($compiled) == false && filemtime($path) == filemtime($compiled)) {
             // Load file as string
             $content = file_get_contents($path);
 
             // Compile Layout
             $content = preg_replace('/(.*)@extends\((.+?)\)(.*)/s', '$1$3<?php extendLayout($2); ?>', $content);
-            
+
             // Compile Section
             $content = preg_replace('/@section\((.+?)\)/', '<?php startSection($1); ?>', $content);
             $content = preg_replace('/@endsection/', '<?php endSection(); ?>', $content);
             $content = preg_replace('/@yield\((.+?)\)/', '<?php echo yieldContent($1); ?>', $content);
-            
+
             // Compile Foreach
             $content = preg_replace('/@foreach\((.+?) as (.+?)\)/', '<?php foreach ($1 as $2): ?>', $content);
             $content = preg_replace('/@endforeach/', '<?php endforeach; ?>', $content);
-            
+
             // Compile Conditional
             $content = preg_replace('/@if\((.+?)\)/', '<?php if ($1): ?>', $content);
             $content = preg_replace('/@isset\((.+?)\)/', '<?php if (isset($1)): ?>', $content);
@@ -90,6 +85,6 @@ class View {
             touch($compiled, filemtime($path));
         }
 
-        return $content;
+        return $compiled;
     }
 }
